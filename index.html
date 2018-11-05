@@ -1,0 +1,88 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>Try it yourself editor</title>
+		<style type="text/css">
+            body{
+                background-color: #cdea98;
+            }
+			textarea, iframe {
+    			border: 2px solid #000;
+                background-color: #fff;
+    			height: 500px;
+    			width: 100%;	
+                 
+			}
+            input[type="button"] {
+                 width: 120px;
+                 background-color: yellow;
+                 padding: 5px;
+            }
+            strong{
+                padding: 5px;
+                border: 2px solid #000;
+                color: #840505;
+                background-color: #e8cd4a;
+                font-size: 20px;
+                font-style: italic;
+            }
+    	</style>
+	</head>
+    <body>
+        <table width="100%" border="0" cellspacing="5" cellpadding="5">
+            <tr bgcolor="#3e9db7">
+                <td width="50%" scope="col">&nbsp;
+                    <input onclick="eraseText();" type="button" value="Blank Code">
+                </td>
+                <td width="50%" align="left" >
+                    <input onclick="erasePen();" type="button" value="Blank Pen">
+                    <input onclick="runCode();" type="button" value="Run Code">
+                </td>
+            </tr>
+            <tr>
+                <td> 
+                    <form>
+                        <strong>Code</strong>
+                        <textarea name="sourceCode" id="sourceCode" onkeyup="runCode()">
+<html>
+<head>
+<title>Hello</title>
+</head>
+<body>
+<h1>Hello!</h1>
+<p>Write HTML, CSS or JavaScript code here and click 'Run Code'.</p>
+</body>
+</html>
+                        </textarea>
+                    </form>
+                </td>
+                <td><strong>Output</strong><iframe name="targetCode" id="targetCode"></iframe></td>
+            </tr>
+        </table>  
+        <script type="text/javascript">
+            function runCode()
+            {
+                var content = document.getElementById('sourceCode').value;
+                var iframe = document.getElementById('targetCode');
+                iframe = (iframe.contentWindow) ? iframe.contentWindow : (iframe.contentDocument.document) ? iframe.contentDocument.document : iframe.contentDocument;
+                iframe.document.open();
+                iframe.document.write(content);
+                iframe.document.close();
+                return false;
+            }
+            runCode();
+            function eraseText() {
+                document.getElementById("sourceCode").value = "";
+            }
+            function erasePen() {
+                var iframe = document.getElementById("targetCode");
+                var html ="";
+                iframe.contentWindow.document.open();
+                iframe.contentWindow.document.write(html);
+                iframe.contentWindow.document.close();
+            }
+
+        </script>
+    </body>
+</html>
